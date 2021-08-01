@@ -41,7 +41,7 @@ pool.getConnection((err,conn)=>{
         } else {
             //查询到结果
             for(var i in res){
-                //记录用户名密码
+                //记录账号密码
                 userList[res[i].id] = {user:res[i].name,pwd:res[i].alexa};
                 console.log(userList);
             }
@@ -58,14 +58,19 @@ var server = ws.createServer((conn)=>{
     conn.on('text',(str)=>{
         console.log(str);
         var data = JSON.parse(str);//接收数据
-        //登录服务
-        if(data.type == 'admin'){
+        //判登录
+        if(data.type == 'login'){
             for(var i in userList){
+                //判断账号密码是否正确
                 if(data.name == userList[i].user && data.pwd == userList[i].pwd){
                     conn.sendText('登录成功！');
                     console.log(`${data.name}已登录！`);
                 }
             }   
+        }
+        //判注册
+        if(data.type == 'register'){
+
         }
     });
 }).listen(9511);
