@@ -1,0 +1,49 @@
+$cmd管理员模式
+#runas /user:administrator cmd
+$cmd中文乱码，告诉mysql cmd接收gbk编码
+#set character_set_client=gbk;
+#set character_set_results=gbk;
+
+1、#mysql -uroot -p835207
+2、#mysql -uroot -p//隐藏密码登录
+3、#exit//退出
+4、查看mysql中有哪些数据库
+#show databases;
+默认自带了四个
+5、使用某个数据库
+#use name;
+6、创建数据库
+#create database name;
+7、删除数据库
+drop database name;
+8、查看数据库下有哪些表
+#show tables;
+||||||||数据语言分类
+DQL	数据查询语言（select）最常用
+DML	数据操作语言（增删改insert、delete、update）改数据
+DDL	数据定义语言（create、drop、修改alter）改表结构
+TCL	事务控制语言（事务提交：commit、事务回滚：rollback）
+DCL	数据控制语言（授权grant、撤权revoke）
+10、导入数据库
+#source 路径/文件
+11、查看表中数据
+#select * from 表名;//效率低，实际开发不建议用
+12、不看数据只看结构
+#desc 表名;
+13、查看数据库版本号
+#select version();
+14、查看当前使用的数据库
+#select database();
+15、修改表名
+#alter table name rename to new_name;
+|||||||查询
+1、查字段
+#select 字段名 from 表名;
+2、查多个字段
+#select 字段名1,字段名2 from 表名；
+3、给查询的列取别名
+#select 字段名 as 别名 from 表名;//表内不会变，as可省略，可加别名用引号空气来 
+4、字段可以用计算
+#select 字段名*12 from 表名; 
+5、where
+

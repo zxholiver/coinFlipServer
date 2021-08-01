@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "mysql": "^2.18.1",
-    "nodejs-websocket": "^1.7.2"
+    "nodejs-websocket": "^1.7.2",
+    "nodemon": "^2.0.12"
   }
 }

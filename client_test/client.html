@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>登录界面测试</h1>
+    <div id="userList"></div>
+    用户：<input id="name" /><br>
+    <!--输入名字-->
+    密码：<input id="pwd" /><br>
+    <button id="reg" style="width:110px;height:30px">注册</button>
+    <button id="admin" style="width:110px;height:30px">登录</button>
+    <div id="recv"></div>
+    <!--显示内容-->
+
+
+    <script type="text/javascript">
+
+        document.getElementById("admin").onclick = function(){
+
+            var name = document.getElementById("name").value;
+            var pwd = document.getElementById("pwd").value;
+            if (name === ""){
+                console.log("名字为空");//判空
+                document.getElementById("recv").innerHTML = "名字不能为空"
+                return;
+            }
+            else{//名字不为空，则建立连接   
+                if(pwd == ""){
+                    console.log("密码为空");//判空
+                    document.getElementById("recv").innerHTML = "密码不能为空"
+                    return;
+                }
+                else{
+                    var ws = new WebSocket("ws://127.0.0.1:9511");//服务器地址
+                    //连接
+                    ws.onopen = function () {
+                            document.getElementById("recv").innerHTML = "已连接服务器"
+                            //传用户名，密码
+                            ws.send(JSON.stringify({ name: name,pwd: pwd,type: "admin" }));
+                        }
+                    //接收到消息
+                    ws.onmessage = function (recMsg) {
+                            //console.log(recvMsg);
+                            console.log(recMsg.data);
+                            document.getElementById('recv').innerHTML = recMsg.data;
+                        }
+
+                    }
+                
+                } 
+            
+            }
+
+        /*
+        ws.onclose = function () {
+            console.log("已断开");
+        }
+        */
+    </script>
+</body>
+
+</html>

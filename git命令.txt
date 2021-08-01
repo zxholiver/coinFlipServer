@@ -1,0 +1,27 @@
+1、初始化
+#git init 
+2、克隆
+#git clone url
+3、查看状态
+#git status
+4、提交暂存区
+#git add .
+5、提交暂存区内容到本地仓库，-m 后跟的提交信息
+#git commit -m "new file...."
+6、.gitignore设置忽略文件
+*.txt  #忽略文件
+!test.txt#除了这个文件
+/bin#忽略文件在bin下，而其中子目录不忽略
+bin/#忽略bin目录下的子目录，该bin目录下文件不忽略 
+7、分支，加-r 查看远程分支
+#git branch 
+8、拉取远程仓库
+#git pull
+9、新建分支，如git branch dev
+#git branch [名字]
+10、切换到该分支
+#git switch  [名字]
+11、合并指定分支到当前分支
+#git merge [名字]
+12、删除分支
+#git branch -d [名字]
