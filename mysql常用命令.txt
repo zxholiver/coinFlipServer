@@ -46,4 +46,6 @@ DCL	数据控制语言（授权grant、撤权revoke）
 4、字段可以用计算
 #select 字段名*12 from 表名; 
 5、where
-
+||||||||插入
+1、插入数据
+insert int table_name (field1,field2..) values (value1,value2...);
