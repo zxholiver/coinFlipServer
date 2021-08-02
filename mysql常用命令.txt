@@ -18,14 +18,18 @@ $cmd中文乱码，告诉mysql cmd接收gbk编码
 drop database name;
 8、查看数据库下有哪些表
 #show tables;
+创建数据表
+CREATE TABLE table_name (column_name column_type);
 ||||||||数据语言分类
 DQL	数据查询语言（select）最常用
 DML	数据操作语言（增删改insert、delete、update）改数据
 DDL	数据定义语言（create、drop、修改alter）改表结构
 TCL	事务控制语言（事务提交：commit、事务回滚：rollback）
 DCL	数据控制语言（授权grant、撤权revoke）
-10、导入数据库
+10、导入数据表！！！
 #source 路径/文件
+删除数据表
+DROP TABLE table_name ;
 11、查看表中数据
 #select * from 表名;//效率低，实际开发不建议用
 12、不看数据只看结构
@@ -49,3 +53,21 @@ DCL	数据控制语言（授权grant、撤权revoke）
 ||||||||插入
 1、插入数据
 insert int table_name (field1,field2..) values (value1,value2...);
+
+
+2、删除原有主键，重建新的主键
+删除原主键
+ALTER TABLE `testuser` DROP `id`;
+添加新主键字段
+ALTER TABLE `testuser` ADD `id` int NOT NULL FIRST;
+设置新主键
+ALTER TABLE `testuser` MODIFY COLUMN `id` int NOT NULL AUTO_INCREMENT,ADD PRIMARY KEY(id);
+
+
+3、修改列名
+ALTER TABLE `table_name` change 原列名 新列名 类型
+4、添加列
+alter table TABLE_NAME add column NEW_COLUMN_NAME varchar(255) not null;
+
+删除数据
+delete from table_name where

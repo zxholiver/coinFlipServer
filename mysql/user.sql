@@ -1,0 +1,17 @@
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `testuser`;
+CREATE TABLE `testuser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(20) NOT NULL DEFAULT '' COMMENT '账号',
+  `pwd` int(8) NOT NULL DEFAULT '0' COMMENT '密码',
+  `allow` int(1) NOT NULL DEFAULT '0' COMMENT '软删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+BEGIN;
+INSERT INTO `testuser` VALUES ('1', 'admin', '835207','1'),('2','user','123456','1');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
