@@ -21,6 +21,9 @@ var userList={
 };
 var allow = '1';//软删除
 var power = '1';//权限
+//判断是否有账号，有则发送该用户已注册
+var isRegister = 1;
+
 //数据库--------------------------------
 console.log('数据库连接中...');
 //创建连接池
@@ -85,18 +88,19 @@ var server = ws.createServer((conn)=>{
             }   
         }
         //登录end-------------------------------------------------------
+
         //注册-------------------------------------------------
         if(data.type == 'register'){
-            //判断是否有账号，有则发送该用户已注册
-            var isRegister = 1;
+            console.log(isRegister);
             for(var i in userList){
                 if(data.name == userList[i].user){
-                    conn.sendText('该用户已注册，请勿重复注册！');
+                    //conn.sendText('该用户已注册，请勿重复注册！');
                     console.log(`${data.name}已注册，请勿重复注册！`);
                     isRegister = 0;
-                    return;
+                    break;
                 }
-            }  
+                isRegister = 1;
+            } 
             if(isRegister){
                 //如果没注册过，则将其写入数据库
                 pool.getConnection((err,mysqlConn)=>{
@@ -124,16 +128,19 @@ var server = ws.createServer((conn)=>{
                     }
                 });
             }
+            else{//已注册过,isregister = 0
+                conn.sendText('该用户已注册，请勿重复注册！');
+            }
         }
         //注册end----------------------------------------------------------
         
         
     });
     conn.on("close",  (code, reason)=>{
-        console.log("关闭连接")
+        console.log("用户退出");
     });
     conn.on("error",  (code, reason)=>{
-        console.log("异常关闭")
+        console.log("登录状态异常");
     });
 }).listen(9511);
 console.log('websocket服务创建成功!');
