@@ -109,6 +109,7 @@ var server = ws.createServer((conn)=>{
                         var sqltest = `select * from userdata`;
                         var sqlValues = [data.name,data.pwd,allow,power];
                         console.log(sqlValues);
+                        //测试用sqltest
                         mysqlConn.query(sqltest,(err,res)=>{
                             if(err){
                                 console.log('数据库插入失败');
@@ -116,7 +117,7 @@ var server = ws.createServer((conn)=>{
                             }
                             else{
                                 console.log(`${data.name}注册成功！`);
-                                conn.sendText('恭喜你，注册成功！');
+                                conn.sendText('注册成功！');
                                 mysqlConn.destroy();
                             }
                         });
