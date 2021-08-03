@@ -59,19 +59,28 @@ pool.getConnection((err,mysqlConn)=>{
 console.log('websocket服务创建中...');
 var server = ws.createServer((conn)=>{
     //收到消息
+    console.log("用户尝试连接");
     conn.on('text',(str)=>{
         console.log(str);
+        //console.log(typeof(str));
+        //测试
+        // if(str == "你好")
+        //     conn.sendText("你好呀");
+
         var data = JSON.parse(str);//接收数据
         //登录---------------------------------------------------
+        //这样登录验证会使每次比对都发送验证是否成功，应该修改
+        //应该设置一个参数，作为验证，并且返回给客户端
         if(data.type == 'login'){
             for(var i in userList){
                 //判断账号密码是否正确
                 if(data.name == userList[i].user && data.pwd == userList[i].pwd){
                     conn.sendText('登录成功！');
                     console.log(`${data.name}已登录！`);
-                }
-                else{
+                    return;//登录成功则退出循环
+                }else{
                     conn.sendText("账号或密码错误！");
+                    continue;//验证失败则继续下次循环，防止输错一次就不验证
                 }
             }   
         }
@@ -116,6 +125,14 @@ var server = ws.createServer((conn)=>{
             }
         }
         //注册end----------------------------------------------------------
+        
+        
+    });
+    conn.on("close",  (code, reason)=>{
+        console.log("关闭连接")
+    });
+    conn.on("error",  (code, reason)=>{
+        console.log("异常关闭")
     });
 }).listen(9511);
 console.log('websocket服务创建成功!');
